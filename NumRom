@@ -1,0 +1,679 @@
+	.data
+	
+ln1:	.asciiz "*****    ****  *******  ***      **  **           ** ******* ***      ** **** ******        ****\n"
+ln2:	.asciiz "**   **   **   **       ****     **   **         **  **      ****     **  **  **   **     **    **\n"
+ln3:	.asciiz "**   **   **   **       ** **    **    **       **   **      ** **    **  **  **    **   **      **\n"
+ln4:	.asciiz "******    **   ****     **  **   **     **     **    *****   **  **   **  **  **     ** **        **\n"
+ln5:	.asciiz "**   **   **   **       **   **  **      **   **     **      **   **  **  **  **     ** **        **\n"
+ln6:	.asciiz "**    **  **   **       **    ** **       ** **      **      **    ** **  **  **    **   **      **\n"
+ln7:	.asciiz "**   **   **   **       **     ****        ***       **      **     ****  **  **   **     **    **\n"
+ln8:	.asciiz "*****    ****  *******  **      ***         *        ******* **      *** **** ******        ****\n"
+mnsj1:	.asciiz "Introduzca el primer numero romano.\n"
+mnsj2:	.asciiz "\nIntroduzca el segundo numero romano.\n"
+mnsj3:	.asciiz "\nIntroduzca:\n(1) para SUMAR\n(2) para RESTAR\n(3) para MULTIPLICAR\n(4) para DIVIDIR y mostrar el COCIENTE\n(5) para DIVIDIR y mostrar el RESIDUO.\n"
+mnsj4:	.asciiz "\nIntroduzca:\n(1) para imprimir el numero NORMALMENTE\n(2) para imprimir el numero GRAFICAMENTE.\n"
+error1:	.asciiz "\nUno o varios de los caracteres ingresados son invalidos! Los caracteres validos son I, V, X, L, C, D y M.\n"
+error2:	.asciiz "\nLa resta da 0! El 0 no existe en numeros romanos.\n"
+error3:	.asciiz "\nEl residuo es 0! El 0 no existe en numeros romanos.\n"
+error4:	.asciiz "\nEl numero ingresado no es valido!\n"
+nl:	.asciiz	"\n"
+m1:	.asciiz "1"
+m5:	.asciiz "5"
+m10:	.asciiz "10"
+m50:	.asciiz "50"
+m100:	.asciiz "100"
+m500:	.asciiz "500"
+m1000:	.asciiz "1000"
+M1:	.asciiz "M"	#1000
+CM1:	.asciiz	"CM"	#900
+DC1:	.asciiz	"DC"	#600
+D1:	.asciiz "D"	#500
+CD1:	.asciiz "CD"	#400
+C1: 	.asciiz "C"	#100
+XC1:	.asciiz "XC"	#90
+LX1:	.asciiz "LX"	#60
+L1:	.asciiz "L"	#50
+XL1:	.asciiz "XL"	#40
+X1:	.asciiz "X"	#10
+IX1:	.asciiz "IX"	#9
+V1:	.asciiz "V"	#5
+IV1:	.asciiz "IV"	#4
+I1:	.asciiz "I"	#1
+num1:	.byte 20	
+num2:	.byte 20
+IL1:	.asciiz "********"
+IL2:	.asciiz "   **"
+IL3:	.asciiz "   **"
+IL4:	.asciiz "   **"
+IL5:	.asciiz "   **"
+IL6:	.asciiz "   **"
+IL7:	.asciiz "   **"
+IL8:	.asciiz "********"
+VL1:	.asciiz "*      *"
+VL2:	.asciiz "*      *"
+VL3:	.asciiz "*      *"
+VL4:	.asciiz "*      *"
+VL5:	.asciiz " *    *"
+VL6:	.asciiz "  *  *"
+VL7:	.asciiz "   **"
+VL8:	.asciiz "    *"
+XL11:	.asciiz "*      *"
+XI2:	.asciiz " *    *"
+XL3:	.asciiz "  *  *"
+XL4:	.asciiz "   **"
+XL5:	.asciiz "   **"
+XL6:	.asciiz "  *  *"
+XL7:	.asciiz " *    *"
+XL8:	.asciiz "*      *"
+LL1:	.asciiz "*"
+LL2:	.asciiz "*"
+LL3:	.asciiz "*"
+LL4:	.asciiz "*"
+LL5:	.asciiz "*"
+LL6:	.asciiz "*"
+LL7:	.asciiz "*"
+LL8:	.asciiz "********"
+CL1:	.asciiz "   ****  "
+CL2:	.asciiz "  *"
+CL3:	.asciiz " *"
+CL4:	.asciiz " *"
+CL5:	.asciiz " *"
+CL6:	.asciiz " *"
+CL7:	.asciiz "  *"
+CL8:	.asciiz "   ****"
+DL1:	.asciiz "  ***"
+DL2:	.asciiz "  *  *"
+DL3:	.asciiz "  *   *"
+DL4:	.asciiz "  *    *"
+DL5:	.asciiz "  *    *"
+DL6:	.asciiz "  *   *"
+DL7:	.asciiz "  *  *"
+DL8:	.asciiz "  ***"
+ML1:	.asciiz "*     *"
+ML2:	.asciiz "**   **"
+ML3:	.asciiz "* * * *"
+ML4:	.asciiz "*  *  *"
+ML5:	.asciiz "*     *"
+ML6:	.asciiz "*     *"
+ML7:	.asciiz "*     *"
+ML8:	.asciiz "*     *"
+
+mnsjj:	.asciiz "HOLA"
+
+	.text
+	.globl main
+	
+main:	li $s0,1	#aqui se guardan los los valores de los numeros romanos
+	li $s1,5
+	li $s2,10
+	li $s3,50
+	li $s4,100
+	li $s5,500
+	li $s6,1000
+	la $a0,ln1	#welcome screen
+	li $v0,4
+	syscall
+	la $a0,ln2
+	li $v0,4
+	syscall
+	la $a0,ln3
+	li $v0,4
+	syscall
+	la $a0,ln4
+	li $v0,4
+	syscall
+	la $a0,ln5
+	li $v0,4
+	syscall
+	la $a0,ln6
+	li $v0,4
+	syscall
+	la $a0,ln7
+	li $v0,4
+	syscall
+	la $a0,ln8
+	li $v0,4
+	syscall		#welcome screen
+	
+	la $a0,mnsj1
+	li $v0,4
+	syscall
+	
+	la $a0,num1	#lee el primer numero
+	li $a1,20
+	li $v0,8
+	syscall
+	
+	jal ppal
+
+	
+ppal:	jal rcrr1
+ppal2:	li $t0,0	#subrutina para guardar el primer numero y leer el segundo
+	li $t1,0
+	li $t2,0
+	li $t3,0
+	li $t4,0
+	li $t5,0
+	move $t7,$t6	#guarda el primer numero en $t7
+	li $t6,0
+	li $t8,1
+
+	la $a0,mnsj2	#muestra el mnsj2
+	li $v0,4
+	syscall
+	
+	la $a0,num2	#lee el segundo numero
+	li $a1,20
+	li $v0,8
+	syscall
+
+	jal rcrr2
+	
+rcrr1:	la $a0,num1	#subrutina que recorre el num1 que esta en $a0
+	add $t1,$t0,$a0	#guarda la direccion de num1[i] en $t1
+	lb $t2,($t1)	#guarda el valor ASCII del caracter en num1[i] en $t2
+	
+	addi $t3,$t0,1
+	add $t4,$t3,$a0
+	lb $t4,($t4)	#guarda el valor ASCII del caracter en num1[i+1] en $t4
+	
+	addi $t0,$t0,1	#sumo 1 al contador i
+	
+	la $a0,num1
+	
+	jal conv4
+	
+
+rcrr2:	la $a0,num2	#subrutina que recorre el num1 que esta en $a0
+	add $t1,$t0,$a0	#guarda la direccion de num1[i] en $t1
+	lb $t2,($t1)	#guarda el valor ASCII del caracter en num1[i] en $t2
+	
+	addi $t3,$t0,1
+	add $t4,$t3,$a0
+	lb $t4,($t4)	#guarda el valor ASCII del caracter en num1[i+1] en $t4
+	
+	addi $t0,$t0,1	#sumo 1 al contador i
+	
+	la $a0,num2
+	
+	jal conv4
+
+conv4:	beq $t4,10,conv	#subrutina que convierte $t4 (caracter i+1)
+	beq $t4,73,convI
+	beq $t4,105,convI
+	beq $t4,86,convV
+	beq $t4,118,convV
+	beq $t4,88,convX
+	beq $t4,120,convX
+	beq $t4,76,convL
+	beq $t4,108,convL
+	beq $t4,67,convC
+	beq $t4,99,convC
+	beq $t4,68,convD
+	beq $t4,100,convD
+	beq $t4,77,convM
+	beq $t4,109,convM
+
+
+conv:	beq $t2,73,I	#subrutina que convierte $t4 (caracter i+1)
+	beq $t2,105,I
+	beq $t2,86,V
+	beq $t2,118,V
+	beq $t2,88,X
+	beq $t2,120,X
+	beq $t2,76,L
+	beq $t2,108,L
+	beq $t2,67,C
+	beq $t2,99,C
+	beq $t2,68,D
+	beq $t2,100,D
+	beq $t2,77,M
+	beq $t2,109,M
+	b valCar
+
+valCar:	la $a0,error1	#valida los caracteres
+	li $v0,4
+	syscall
+	
+	j final
+
+convI:	li $t5,1	#subrutinas que convierten el valor ASCII presente en $t4 y lo almacena en $t5
+	j conv
+
+
+convV:	li $t5,5
+	j conv
+
+
+convX:	li $t5,10
+	j conv
+
+
+convL:	li $t5,50
+	j conv
+
+
+convC:	li $t5,100
+	j conv
+
+
+convD:	li $t5,500
+	j conv
+
+
+convM:	li $t5,1000
+	j conv
+
+	
+I:	beq $t4,10,verFI	#si el valor ASCII en i+1 = 10
+	bge $s0,$t5,verIMa	#verifica si el valor almacenado en $si(1, 2, 3, 4...) es mayor o igual que el valor en $t5
+	blt $s0,$t5,verIme	#verifica si el valor almacenado en $si(1, 2, 3, 4...) es menor que el valor en $t5
+
+
+V:	beq $t4,10,verFV
+	bge $s1,$t5,verVMa
+	blt $s1,$t5,verVme
+
+
+X:	beq $t4,10,verFX
+	bge $s2,$t5,verXMa
+	blt $s2,$t5,verXme
+
+
+L:	beq $t4,10,verFL
+	bge $s3,$t5,verLMa
+	blt $s3,$t5,verLme
+
+
+C:	beq $t4,10,verFC
+	bge $s4,$t5,verCMa
+	blt $s4,$t5,verCme
+
+
+D:	beq $t4,10,verFD
+	bge $s5,$t5,verDMa
+	blt $s5,$t5,verDme
+
+
+M:	beq $t4,10,verFM
+	bge $s6,$t5,verMMa
+	
+	
+verFI:	addi $t6,$t6,1	#contador $t6 en donde se guarda el valor decimal del segundo numero
+	beq $t8,0,ult1	#si no se ha ingresado el segundo numero, branch a ult1
+	beq $t8,1,ult2	#si se ingreso el segundo numero, branch a ult2
+
+
+verIMa:	addi $t6,$t6,1
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verIme:	sub $t6,$t6,1
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verFV:	addi $t6,$t6,5
+	beq $t8,0,ult1
+	beq $t8,1,ult2
+
+
+verVMa:	addi $t6,$t6,5
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verVme:	sub $t6,$t6,5
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verFX:	addi $t6,$t6,10
+	beq $t8,0,ult1
+	beq $t8,1,ult2
+
+
+verXMa:	addi $t6,$t6,10
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verXme:	sub $t6,$t6,10
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verFL:	addi $t6,$t6,50
+	beq $t8,0,ult1
+	beq $t8,1,ult2
+
+
+verLMa:	addi $t6,$t6,50
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verLme:	sub $t6,$t6,50
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verFC:	addi $t6,$t6,100
+	beq $t8,0,ult1
+	beq $t8,1,ult2
+
+
+verCMa:	addi $t6,$t6,100
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verCme:	sub $t6,$t6,100
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verFD:	addi $t6,$t6,500
+	beq $t8,0,ult1
+	beq $t8,1,ult2
+
+
+verDMa:	addi $t6,$t6,500
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verDme:	sub $t6,$t6,500
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+
+
+verFM:	addi $t6,$t6,1000
+	beq $t8,0,ult1
+	beq $t8,1,ult2
+
+
+verMMa:	addi $t6,$t6,1000
+	beq $t8,0,rcrr1
+	beq $t8,1,rcrr2
+	
+	
+ult1:	move $a0,$t6	#1er numero
+	li $v0,1
+	syscall
+
+	j ppal2
+
+
+ult2:	move $a0,$t6	#2do numero
+	li $v0,1
+	syscall
+	
+	
+oper:	li $t0,0	#subrutina general en donde se realizan las operaciones (suma, resta, multiplicacion, division)
+	li $t1,0
+	li $t2,0
+	li $t3,0
+	li $t4,0
+	li $t5,0
+	li $t8,0
+
+	la $a0,mnsj3	#pregunta que operacion se va a realizar
+	li $v0,4
+	syscall
+	
+	li $v0,5
+	syscall
+	
+	beq $v0,1,suma	#branch a las operaciones pertinentes
+	beq $v0,2,resta
+	beq $v0,3,por
+	beq $v0,4,coc
+	beq $v0,5,resid
+	
+
+suma:	add $t8,$t7,$t6	#resultado final se almacena en $t8
+	b regres
+
+
+resta:	beq $t6,$t7,valRstI
+	bgt $t6,$t7,valRstM
+	sub $t8,$t7,$t6	#resultado final se almacena en $t8
+	b regres
+
+
+por:	mult $t7,$t6
+	mflo $t8	#resultado final se almacena en $t8
+	b regres
+	
+
+coc:	div $t7,$t6
+	mflo $t8	#resultado final se almacena en $t8
+	
+	b regres
+
+resid:	div $t7,$t6
+	mfhi $t8	#resultado final se almacena en $t8
+	beq $t8,$zero,valRes
+	
+valRes:	la $a0,error3	#valida el residuo
+	li $v0,4
+	syscall
+	
+valRstM:sub $t8,$t6,$t7	#valida si es mayor y hace la operacion invertida, el resultado final se almacena en $t8
+	b regres
+
+valRstI:la $a0,error2	#valida si la resta = 0
+	li $v0,4
+	syscall 
+	
+	b final
+
+#----------------------------------REGRESA EL VALOR A STRING------------------------------------
+regres:	la $a0,mnsj4
+	li $v0,4
+	syscall
+	
+	li $v0,5
+	syscall
+	
+	beq $v0,1,normal
+	
+	b graf
+	
+normal:	li $s7,0	#imprime normalmente
+	
+	move $a0,$t8
+	li $v0,1
+	syscall
+	
+	la $a0,nl
+	li $v0,4
+	syscall
+
+	move $t0,$t8
+	move $t9,$a0
+	
+	b loop
+	
+loop:	blez $t0,final	#si $t0 <= 0 termina el programa
+	bge $t0,1000,mil#si $t0 >= 1000 imprime "M"
+	bge $t0,900,nvsc#si $t0 >= 900 imprime "CM" y resta $t0-900
+	bge $t0,600,seis#si $t0 >= 600 imprime "DC" y resta $t0-600
+	bge $t0,500,quin#si $t0 >= 500 imprime "D" y resta $t0-500
+	bge $t0,400,ctsc#si $t0 >= 400 imprime "CD" y resta $t0-400
+	bge $t0,100,cien#si $t0 >= 100 imprime "C" y resta $t0-100
+	bge $t0,90,noven#si $t0 >= 90 imprime "XC" y resta $t0-90
+	bge $t0,60,sesen#si $t0 >= 90 imprime "LX" y resta $t0-60
+	bge $t0,50,cincu#si $t0 >= 90 imprime "L" y resta $t0-50
+	bge $t0,40,cuare#si $t0 >= 90 imprime "XL" y resta $t0-40
+	bge $t0,10,diez	#si $t0 >= 90 imprime "X" y resta $t0-10
+	bge $t0,9,nueve	#si $t0 >= 90 imprime "IX" y resta $t0-9
+	bge $t0,5,cinco	#si $t0 >= 90 imprime "V" y resta $t0-5
+	bge $t0,4,cuatro#si $t0 >= 90 imprime "IV" y resta $t0-4
+	bge $t0,1,uno	#si $t0 >= 90 imprime "I" y resta $t0-1
+
+	#Las proximas subrutinas le restan a $t8 los valores generales romanos (P/Ej: 1000, 900, 600, 500...)
+
+mil:	div $t9,$s6	#subrutinas que le restan al valor total almacenado en $t8 1000
+	mflo $t9	#se guarda el cociente en $t9
+
+	bne $s7,$t9,impMIL
+
+	j final
+
+impMIL:	addi $t0,$t0,-1000
+	add $s7,$s7,1
+	
+	la $a0,M1
+	li $v0,4
+	syscall
+	
+	j loop
+
+nvsc:	la $a0,CM1	##subrutinas que le restan al valor total almacenado en $t8 900
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-900
+
+	b loop
+
+seis:	la $a0,DC1	#subrutinas que le restan al valor total almacenado en $t8 600
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-600
+
+	b loop
+
+quin:	la $a0,D1	#subrutinas que le restan al valor total almacenado en $t8 500
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-500
+
+	b loop
+
+ctsc:	la $a0,CD1	#subrutinas que le restan al valor total almacenado en $t8 400
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-400
+
+	b loop
+
+cien:   la $a0,C1	#subrutinas que le restan al valor total almacenado en $t8 100
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-100
+
+	b loop
+
+noven:  la $a0,XC1	#subrutinas que le restan al valor total almacenado en $t8 90
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-90
+	b loop
+
+sesen:  la $a0,LX1	#subrutinas que le restan al valor total almacenado en $t8 60
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-60
+	b loop
+
+cincu:  la $a0,L1	#subrutinas que le restan al valor total almacenado en $t8 50
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-50
+	b loop
+
+cuare:  la $a0,XL1
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-40
+	b loop
+
+diez:   la $a0,X1
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-10
+	b loop
+
+nueve:  la $a0,IX1
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-9
+	b loop
+
+cinco:  la $a0,V1
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-5  
+	b loop
+
+cuatro: la $a0,IV1
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-4
+	b loop
+
+uno:    la $a0,I1
+	li $v0,4
+	syscall
+
+	addi $t0,$t0,-1
+	b loop
+	
+graf:	#move $a0,$t8
+#	add $t1,$t0,$t8	#guarda la direccion de num1[i] en $t1
+#	lb $t2,($t1)	#guarda el valor ASCII del caracter en num1[i] en $t2
+	
+#	addi $t0,$t0,1	#sumo 1 al contador i
+	
+#	la $a0,num1
+	
+#	jal mostrar
+	
+mostrar:#beq $t2,73,mI
+#	beq $t2,105,mI
+#	beq $t2,86,mV
+#	beq $t2,118,mV
+#	beq $t2,88,mX
+#	beq $t2,120,mX
+#	beq $t2,76,mL
+#	beq $t2,108,mL
+#	beq $t2,67,mC
+#	beq $t2,99,mC
+#	beq $t2,68,mD
+#	beq $t2,100,mD
+#	beq $t2,77,mM
+#	beq $t2,109,mM
+
+#mI:	
+
+#mV:
+
+#mX:
+
+#mL:
+
+#mC:
+
+#mD:
+
+#mM:
+	
+
+final:  li $v0,10	#exit
+	syscall
